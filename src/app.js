@@ -8,34 +8,27 @@ import {
 
 class App extends Component {
     state = {
-        params: []
+        sampledata: {}
     }
 
     componentDidMount() {
         console.log('app component mounted');
-        this.loadFileNoAsync();
+        this.loadFileAsync();
     }
 
-    loadFileNoAsync() {
-        const rel = fetch('./sample.json').then((res) => {
-            return res.json();
-        })
-        .then((json) => { 
-            console.log(json);
-            if(json.thing1) {
-                console.log(json.thing1);
-            }
-        })
-        .catch((err) => {
-            console.error('Unable to GET file', err)
-        });
+    async loadFileAsync() {
+        const rel = await fetch('./sample.json');
+        const json = await rel.json();
+        this.setState(json);
+        console.log('Async load success', this.state);
     }
 
     render() {
-        const title = this.state;
+        const myData = this.state.sampledata;
         return (
             <div>
                 <div>This is the App component</div>
+                <div>State: {myData.id} {myData.name} {myData.level}</div>
             </div>
         );
     }

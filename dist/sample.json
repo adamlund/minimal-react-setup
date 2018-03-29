@@ -1,1 +1,1 @@
-{"thing1": {"id":"foo"}}
+{"sampledata": {"id":"foo","name": "bar", "level": 100}}
