@@ -1,7 +1,6 @@
 module.exports = {
     entry: [
-        'babel-polyfill',
-        'whatwg-fetch',
+        '@babel/polyfill',
         './src/index.js'
     ],
     module: {
@@ -10,7 +9,11 @@ module.exports = {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 use: ['babel-loader']
-            }
+            },
+            {
+                test: /\.(scss|css)$/,
+                use: [ 'style-loader', 'css-loader']
+              }
         ]
     },
     resolve: {
