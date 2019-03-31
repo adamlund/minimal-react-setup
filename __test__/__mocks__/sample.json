@@ -1,20 +1,20 @@
 {
-    "data": {
+    "stuff": {
         "1": {
             "id": 1,
-            "name": "First",
+            "name": "Hello",
             "level": 100,
             "active": true
         },
         "2": {
             "id": 2,
-            "name": "Second",
+            "name": "Big",
             "level": 99,
             "active": false
         },
         "3": {
             "id": 3,
-            "name": "Third",
+            "name": "World",
             "level": 1,
             "active": true
         }

@@ -9,8 +9,9 @@
   },
   "scripts": {
     "test": "jest",
+    "test:watch": "jest --watchAll",
     "test:coverage": "jest --coverage --colors",
-    "start": "webpack-dev-server --config ./webpack.config.js --mode development",
+    "start": "webpack-dev-server --config ./webpack.config.js --mode development --open",
     "build": "webpack --mode production",
     "build:dev": "webpack --watch --debug --env.debug --devtool source-map"
   },
@@ -32,6 +33,7 @@
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.11.2",
     "jest": "^24.5.0",
+    "jest-fetch-mock": "^2.1.1",
     "style-loader": "^0.23.1",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",
@@ -39,11 +41,13 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.4.2",
+    "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0"
   },
   "jest": {
+    "automock": false,
     "testMatch": [
       "**/__tests__/**/*.js?(x)",
       "**/?(*.)+(spec|test).js?(x)"
