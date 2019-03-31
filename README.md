@@ -38,4 +38,7 @@ Deploy assets included in `./dist`
 npm run build
 ```
 
-
+## Branch build status
+| master | develop |
+| ------ | ------ |
+| [![Build Status](https://travis-ci.org/adamlund/minimal-react-setup.svg?branch=master)](https://travis-ci.org/adamlund/minimal-react-setup) | [![Build Status](https://travis-ci.org/adamlund/minimal-react-setup.svg?branch=develop)](https://travis-ci.org/adamlund/minimal-react-setup) |
