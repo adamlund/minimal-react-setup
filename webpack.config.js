@@ -22,9 +22,11 @@ module.exports = {
     output: {
         path: __dirname + '/dist',
         publicPath: '/',
-        filename: 'bundle.js'
+        filename: 'main.bundle.js'
     },
     devServer: {
-        contentBase: './dist'
+        contentBase: './dist',
+        port: 3000,
+        open: 'chrome'
     }
 };
