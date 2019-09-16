@@ -6,8 +6,9 @@ class App extends Component {
     render() {
       return (
         <Fragment>
-          <h1>Simple React App</h1>
-          <LoadFileAsync filePath="./sample.json" rootNode="data" />
+          <h1>React App Example</h1>
+          <p>Load datafile via async call and display contents.</p>
+          <LoadFileAsync filePath="./sampledata/sample_async_data.json" rootNode="data" />
         </Fragment>
       );
     }

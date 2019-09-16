@@ -1,11 +1,12 @@
 import React from 'react';
+import { act }  from 'react-dom/test-utils';
 import { mount } from 'enzyme';
 import LoadFileAsync from '../src/loadasync';
 import SAMPLEDATA from './__mocks__/sample.json';
 
 test('should mount component', async () => {
     const wrapper = mount(<LoadFileAsync />);
-    expect(wrapper.find('button')).toHaveLength(1);
+    expect(wrapper.find('button[data-qa="loadFile"]')).toHaveLength(1);
 });
 
 test('should load sample data', async () => {
@@ -13,22 +14,29 @@ test('should load sample data', async () => {
     // https://www.npmjs.com/package/jest-fetch-mock#simple-mock-and-assert
     fetch.mockResponseOnce(JSON.stringify(SAMPLEDATA));
 
-    // setup a spy to monitor the fn call
-    const loadFnSpy = jest.spyOn(LoadFileAsync.prototype, 'loadFileAsync');
+    // Spy on a static method
+    const isLoadSuccessSpy = jest.spyOn(LoadFileAsync, 'isLoadSuccess');
+    const fetchDataSpy = jest.spyOn(LoadFileAsync, 'fetchData');
 
     // exec the test
     const wrapper = mount(<LoadFileAsync filePath="./sample.json" rootNode="stuff" />);
-    expect(wrapper.find('button')).toHaveLength(1);
-    wrapper.find('button').simulate('click');
 
-    // ensure updates are made
-    await delay(100);
-    await wrapper.update();
-
-    // assertions
-    expect(loadFnSpy).toHaveBeenCalledTimes(1);
-    expect(wrapper.state().data['1'].name).toBe('Hello');
+    expect(wrapper.find('button[data-qa="loadFile"]')).toHaveLength(1);
+    await act(async () => {
+        wrapper.find('button[data-qa="loadFile"]').simulate('click');
+        await delay(100);
+        await wrapper.update();
+    });
     expect(wrapper.find('textarea').getDOMNode().innerHTML).toContain('Hello');
+    expect(isLoadSuccessSpy).toHaveBeenCalled();
+    expect(fetchDataSpy).toHaveBeenCalledTimes(1);
+
+    await act(async () => {
+        wrapper.find('button[data-qa="reset"]').simulate('click');
+        await delay(100);
+        await wrapper.update();
+    });
+    expect(wrapper.find('textarea')).toHaveLength(0);
 });
 
 test('should present error message on reject', async () => {
@@ -38,13 +46,19 @@ test('should present error message on reject', async () => {
 
     // exec the test
     const wrapper = mount(<LoadFileAsync />);
-    wrapper.find('button').simulate('click');
-
-    // ensure updates are made
-    await delay(100);
-    await wrapper.update();
+    await act(async () => {
+        wrapper.find('button[data-qa="loadFile"]').simulate('click');
+        // ensure updates are made
+        await delay(100);
+        await wrapper.update();
+    });
 
     // assertions
     expect(wrapper.find('div.error-message')).toHaveLength(1);
-    expect(wrapper.state().status).toBe(-1);
+});
+
+test('function testing', () => {
+    expect(LoadFileAsync.isLoadSuccess()).toBe(false);
+    expect(LoadFileAsync.isLoadSuccess({})).toBe(false);
+    expect(LoadFileAsync.isLoadSuccess({ thing1: 'hello' })).toBe(true);
 });
