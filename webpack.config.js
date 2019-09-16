@@ -26,7 +26,7 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        publicPath: path.sep,
+        publicPath: `.${path.sep}`,
         filename: '[name].[hash].js'
     },
     plugins: [
