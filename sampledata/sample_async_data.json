@@ -1,0 +1,22 @@
+{
+    "data": {
+        "1": {
+            "id": 1,
+            "name": "First",
+            "level": 100,
+            "active": true
+        },
+        "2": {
+            "id": 2,
+            "name": "Second",
+            "level": 99,
+            "active": false
+        },
+        "3": {
+            "id": 3,
+            "name": "Third",
+            "level": 1,
+            "active": true
+        }
+    }
+}
